@@ -4,7 +4,7 @@ project(pr2_oprs_controllers)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED  roscpp actionlib actionlib_msgs pr2_controllers_msgs pr2_teleop_general)
+find_package(catkin REQUIRED  roscpp actionlib actionlib_msgs pr2_controllers_msgs pr2_teleop_general pr2_gripper_sensor_msgs)
 
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system)
