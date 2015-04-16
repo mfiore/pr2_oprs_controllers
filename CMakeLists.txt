@@ -88,7 +88,8 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
- include_directories(include "/home/mfiore/openrobots/include/openprs/")
+ include_directories(include "/home/mfiore/openrobots/include/openprs/"
+                             "/home/mfiore/openrobots/src/ros-nodes/viman_bridge/srv_gen/cpp/include")
 
 ## Declare a cpp library
 # add_library(pr2_oprs_controllers
@@ -98,6 +99,7 @@ catkin_package(
 ## Declare a cpp executable
 add_executable(head_controller src/HeadController.cpp)
 add_executable(gripper_controller src/GripperController.cpp)
+add_executable(viman_controller src/VimanController.cpp)
 
 
 ## Add cmake target dependencies of the executable/library
@@ -111,6 +113,12 @@ add_executable(gripper_controller src/GripperController.cpp)
 
  )
   target_link_libraries(gripper_controller
+   ${catkin_LIBRARIES}
+      /home/mfiore/openrobots/lib/libExtMP.a
+
+ )
+
+  target_link_libraries(viman_controller
    ${catkin_LIBRARIES}
       /home/mfiore/openrobots/lib/libExtMP.a
 
@@ -163,3 +171,5 @@ add_executable(gripper_controller src/GripperController.cpp)
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+
