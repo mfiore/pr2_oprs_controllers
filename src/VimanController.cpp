@@ -76,7 +76,7 @@ int main(int argc, char** argv){
 
   ros::NodeHandle n;
 
-  ros::ServiceClient client = n.serviceClient<viman_bridge::SwitchCameras>("SwitchCameras");
+  client = n.serviceClient<viman_bridge::SwitchCameras>("SwitchCameras");
 
 
   mpSocket = external_register_to_the_mp_prot("viman_controller", 3300, STRINGS_PT);
