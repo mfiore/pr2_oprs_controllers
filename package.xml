@@ -39,6 +39,8 @@
   <build_depend>pr2_controllers_msgs</build_depend>
   <build_depend>pr2_teleop_general</build_depend>
     <build_depend>pr2_gripper_sensor_msgs</build_depend>
+  <build_depend> message_generation </build_depend>
+  <build_depend> std_msgs </build_depend>
     
   <!-- Use buildtool_depend for build tool packages: -->
      <buildtool_depend>catkin</buildtool_depend> 
@@ -53,6 +55,8 @@
   <run_depend>pr2_controllers_msgs</run_depend>
  <run_depend>pr2_teleop_general</run_depend>
  <run_depend>pr2_gripper_sensor_msgs</run_depend>
+ <run_depend> message_runtime </run_depend>
+  <run_depend> std_msgs </run_depend>
  <!-- The export tag contains other, unspecified, tags -->
   <export>
     <!-- Other tools can request additional information be placed here -->

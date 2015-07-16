@@ -4,7 +4,7 @@ project(pr2_oprs_controllers)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED  roscpp actionlib actionlib_msgs pr2_controllers_msgs pr2_teleop_general pr2_gripper_sensor_msgs)
+find_package(catkin REQUIRED  roscpp actionlib actionlib_msgs pr2_controllers_msgs pr2_teleop_general pr2_gripper_sensor_msgs message_generation)
 
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system)
@@ -47,11 +47,12 @@ find_package(Boost REQUIRED COMPONENTS system)
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
+ add_service_files(
+   FILES
+    UseGripper.srv
 #   Service1.srv
 #   Service2.srv
-# )
+ )
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -61,10 +62,10 @@ find_package(Boost REQUIRED COMPONENTS system)
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
+ generate_messages(
+   DEPENDENCIES
+   std_msgs  # Or other packages containing msgs
+ )
 
 ###################################
 ## catkin specific configuration ##
@@ -78,7 +79,7 @@ find_package(Boost REQUIRED COMPONENTS system)
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES pr2_oprs_controllers
-#  CATKIN_DEPENDS other_catkin_pkg
+  CATKIN_DEPENDS message_runtime std_msgs roscpp actionlib actionlib_msgs pr2_controllers_msgs pr2_teleop_general pr2_gripper_sensor_msgs 
 #  DEPENDS system_lib
 )
 
@@ -99,12 +100,18 @@ catkin_package(
 ## Declare a cpp executable
 add_executable(head_controller src/HeadController.cpp)
 add_executable(gripper_controller src/GripperController.cpp)
+add_executable(gripper_sensor_controller src/GripperSensorController.cpp)
 add_executable(viman_controller src/VimanController.cpp)
+add_executable(oprs_pressure_sensor src/oprs_pressure_sensor.cpp)
+
 
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(pr2_oprs_controllers_node pr2_oprs_controllers_generate_messages_cpp)
+ add_dependencies(gripper_controller pr2_oprs_controllers_generate_messages_cpp)
+ add_dependencies(head_controller pr2_oprs_controllers_generate_messages_cpp)
+add_dependencies(viman_controller pr2_oprs_controllers_generate_messages_cpp)
+add_dependencies(oprs_pressure_sensor pr2_oprs_controllers_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
  target_link_libraries(head_controller
@@ -112,17 +119,31 @@ add_executable(viman_controller src/VimanController.cpp)
       /home/mfiore/openrobots/lib/libExtMP.a
 
  )
+ 
+  target_link_libraries(gripper_sensor_controller
+   ${catkin_LIBRARIES}
+      /home/mfiore/openrobots/lib/libExtMP.a
+
+ )
+ 
   target_link_libraries(gripper_controller
    ${catkin_LIBRARIES}
       /home/mfiore/openrobots/lib/libExtMP.a
 
  )
+ 
 
   target_link_libraries(viman_controller
    ${catkin_LIBRARIES}
       /home/mfiore/openrobots/lib/libExtMP.a
 
  )
+   target_link_libraries(oprs_pressure_sensor
+   ${catkin_LIBRARIES}
+      /home/mfiore/openrobots/lib/libExtMP.a
+
+ )
+ 
 
 #############
 ## Install ##
